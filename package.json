@@ -2,7 +2,7 @@
     "name": "vue-calendar-h5",
     "description": "小巧的日历样式组件,不仅可以展示,还可以选择",
     "version": "1.0.0",
-    "author": "居里栈栈",
+    "author": "Cumelmell <cumelmell@foxmail.com>",
     "license": "MIT",
     "private": false,
     "main": "./dist/index.js",
