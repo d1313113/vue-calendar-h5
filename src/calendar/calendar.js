@@ -9,7 +9,7 @@
  * @公历转农历：calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
  * @农历转公历：calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
  */
-var calendar = {
+const calendar = {
   /**
    * 农历1900-2100的润大小信息表
    * @Array Of Property
@@ -584,9 +584,9 @@ var calendar = {
    * @return Number
    * @eg:var count = calendar.lYearDays(1987) ;//count=387
    */
-  lYearDays: function(y) {
-    var i
-    var sum = 348
+  lYearDays(y) {
+    let i
+    let sum = 348
     for (i = 0x8000; i > 0x8; i >>= 1) {
       sum += calendar.lunarInfo[y - 1900] & i ? 1 : 0
     }
@@ -599,7 +599,7 @@ var calendar = {
    * @return Number (0-12)
    * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
    */
-  leapMonth: function(y) {
+  leapMonth(y) {
     // 闰字编码 \u95f0
     return calendar.lunarInfo[y - 1900] & 0xf
   },
@@ -610,7 +610,7 @@ var calendar = {
    * @return Number (0、29、30)
    * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
    */
-  leapDays: function(y) {
+  leapDays(y) {
     if (calendar.leapMonth(y)) {
       return calendar.lunarInfo[y - 1900] & 0x10000 ? 30 : 29
     }
@@ -623,7 +623,7 @@ var calendar = {
    * @return Number (-1、29、30)
    * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
    */
-  monthDays: function(y, m) {
+  monthDays(y, m) {
     if (m > 12 || m < 1) {
       return -1
     } // 月份参数从1至12，参数错误返回-1
@@ -636,7 +636,7 @@ var calendar = {
    * @return Number (-1、28、29、30、31)
    * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
    */
-  solarDays: function(y, m) {
+  solarDays(y, m) {
     if (m > 12 || m < 1) {
       return -1
     } // 若参数错误 返回-1
@@ -654,9 +654,9 @@ var calendar = {
    * @param  lYear 农历年的年份数
    * @return Cn string
    */
-  toGanZhiYear: function(lYear) {
-    var ganKey = (lYear - 3) % 10
-    var zhiKey = (lYear - 3) % 12
+  toGanZhiYear(lYear) {
+    let ganKey = (lYear - 3) % 10
+    let zhiKey = (lYear - 3) % 12
     if (ganKey === 0) ganKey = 10 // 如果余数为0则为最后一个天干
     if (zhiKey === 0) zhiKey = 12 // 如果余数为0则为最后一个地支
     return calendar.Gan[ganKey - 1] + calendar.Zhi[zhiKey - 1]
@@ -668,10 +668,10 @@ var calendar = {
    * @param  cDay [description]
    * @return Cn string
    */
-  toAstro: function(cMonth, cDay) {
-    var s =
+  toAstro(cMonth, cDay) {
+    const s =
       '\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf'
-    var arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22]
+    const arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22]
     return (
       s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2) + '\u5ea7'
     ) // 座
@@ -682,7 +682,7 @@ var calendar = {
    * @param offset 相对甲子的偏移量
    * @return Cn string
    */
-  toGanZhi: function(offset) {
+  toGanZhi(offset) {
     return calendar.Gan[offset % 10] + calendar.Zhi[offset % 12]
   },
 
@@ -692,15 +692,15 @@ var calendar = {
    * @return day Number
    * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;意即1987年2月4日立春
    */
-  getTerm: function(y, n) {
+  getTerm(y, n) {
     if (y < 1900 || y > 2100) {
       return -1
     }
     if (n < 1 || n > 24) {
       return -1
     }
-    var _table = calendar.sTermInfo[y - 1900]
-    var _info = [
+    const _table = calendar.sTermInfo[y - 1900]
+    const _info = [
       parseInt('0x' + _table.substr(0, 5)).toString(),
       parseInt('0x' + _table.substr(5, 5)).toString(),
       parseInt('0x' + _table.substr(10, 5)).toString(),
@@ -708,7 +708,7 @@ var calendar = {
       parseInt('0x' + _table.substr(20, 5)).toString(),
       parseInt('0x' + _table.substr(25, 5)).toString()
     ]
-    var _calday = [
+    const _calday = [
       _info[0].substr(0, 1),
       _info[0].substr(1, 2),
       _info[0].substr(3, 1),
@@ -748,12 +748,12 @@ var calendar = {
    * @return Cn string
    * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='腊月'
    */
-  toChinaMonth: function(m) {
+  toChinaMonth(m) {
     // 月 => \u6708
     if (m > 12 || m < 1) {
       return -1
     } // 若参数错误 返回-1
-    var s = calendar.nStr3[m - 1]
+    let s = calendar.nStr3[m - 1]
     s += '\u6708' // 加上月字
     return s
   },
@@ -764,9 +764,9 @@ var calendar = {
    * @return Cn string
    * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='廿一'
    */
-  toChinaDay: function(d) {
+  toChinaDay(d) {
     // 日 => \u65e5
-    var s
+    let s
     switch (d) {
       case 10:
         s = '\u521d\u5341'
@@ -790,7 +790,7 @@ var calendar = {
    * @return Cn string
    * @eg:var animal = calendar.getAnimal(1987) ;//animal='兔'
    */
-  getAnimal: function(y) {
+  getAnimal(y) {
     return calendar.Animals[(y - 4) % 12]
   },
 
@@ -802,7 +802,7 @@ var calendar = {
    * @return JSON object
    * @eg:console.log(calendar.solar2lunar(1987,11,01));
    */
-  solar2lunar: function(y, m, d) {
+  solar2lunar(y, m, d) {
     // 参数区间1900.1.31~2100.12.31
     if (y < 1900 || y > 2100) {
       return -1
@@ -810,21 +810,21 @@ var calendar = {
     if (y === 1900 && m === 1 && d < 31) {
       return -1
     } // 下限
-    var objDate = ''
+    let objDate = ''
     if (!y) {
       // 未传参  获得当天
       objDate = new Date()
     } else {
       objDate = new Date(y, parseInt(m) - 1, d)
     }
-    var i
-    var leap = 0
-    var temp = 0
+    let i
+    let leap = 0
+    let temp = 0
     // 修正ymd参数
     y = objDate.getFullYear()
     m = objDate.getMonth() + 1
     d = objDate.getDate()
-    var offset =
+    let offset =
       (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) -
         Date.UTC(1900, 0, 31)) /
       86400000
@@ -838,8 +838,8 @@ var calendar = {
     }
 
     // 是否今天
-    var isTodayObj = new Date()
-    var isToday = false
+    const isTodayObj = new Date()
+    let isToday = false
     if (
       isTodayObj.getFullYear() === y &&
       isTodayObj.getMonth() + 1 === m &&
@@ -848,16 +848,16 @@ var calendar = {
       isToday = true
     }
     // 星期几
-    var nWeek = objDate.getDay()
-    var cWeek = calendar.nStr1[nWeek]
+    let nWeek = objDate.getDay()
+    const cWeek = calendar.nStr1[nWeek]
     if (nWeek === 0) {
       nWeek = 7
     } // 数字表示周几顺应天朝周一开始的惯例
     // 农历年
-    var year = i
+    let year = i
 
     leap = calendar.leapMonth(i) // 闰哪个月
-    var isLeap = false
+    let isLeap = false
 
     // 效验闰月
     for (i = 1; i < 13 && offset > 0; i++) {
@@ -889,27 +889,27 @@ var calendar = {
       --i
     }
     // 农历月
-    var month = i
+    let month = i
     // 农历日
-    var day = offset + 1
+    let day = offset + 1
 
     // 天干地支处理
-    var sm = m - 1
-    var gzY = calendar.toGanZhiYear(year)
+    let sm = m - 1
+    let gzY = calendar.toGanZhiYear(year)
 
     // 月柱 1900年1月小寒以前为 丙子月(60进制12)
-    var firstNode = calendar.getTerm(year, m * 2 - 1) // 返回当月「节」为几日开始
-    var secondNode = calendar.getTerm(year, m * 2) // 返回当月「节」为几日开始
+    let firstNode = calendar.getTerm(year, m * 2 - 1) // 返回当月「节」为几日开始
+    let secondNode = calendar.getTerm(year, m * 2) // 返回当月「节」为几日开始
 
     // 依据12节气修正干支月
-    var gzM = calendar.toGanZhi((y - 1900) * 12 + m + 11)
+    let gzM = calendar.toGanZhi((y - 1900) * 12 + m + 11)
     if (d >= firstNode) {
       gzM = calendar.toGanZhi((y - 1900) * 12 + m + 12)
     }
 
     // 传入的日期的节气与否
-    var isTerm = false
-    var Term = null
+    let isTerm = false
+    let Term = null
     if (firstNode === d) {
       isTerm = true
       Term = calendar.solarTerm[m * 2 - 2]
@@ -919,10 +919,10 @@ var calendar = {
       Term = calendar.solarTerm[m * 2 - 1]
     }
     // 日柱 当月一日与 1900/1/1 相差天数
-    var dayCyclical = Date.UTC(y, sm, 1, 0, 0, 0, 0) / 86400000 + 25567 + 10
-    var gzD = calendar.toGanZhi(dayCyclical + d - 1)
+    let dayCyclical = Date.UTC(y, sm, 1, 0, 0, 0, 0) / 86400000 + 25567 + 10
+    let gzD = calendar.toGanZhi(dayCyclical + d - 1)
     // 该日期所属的星座
-    var astro = calendar.toAstro(m, d)
+    let astro = calendar.toAstro(m, d)
 
     return {
       lYear: year,
@@ -956,18 +956,18 @@ var calendar = {
    * @return JSON object
    * @eg:console.log(calendar.lunar2solar(1987,9,10));
    */
-  lunar2solar: function(y, m, d, isLeapMonth) {
+  lunar2solar(y, m, d, isLeapMonth) {
     // 参数区间1900.1.31~2100.12.1
     isLeapMonth = !!isLeapMonth
-    var leapMonth = calendar.leapMonth(y)
+    let leapMonth = calendar.leapMonth(y)
     if (isLeapMonth && leapMonth !== m) {
       return -1
     } // 传参要求计算该闰月公历 但该年得出的闰月与传参的月份并不同
     if ((y === 2100 && m === 12 && d > 1) || (y === 1900 && m === 1 && d < 31)) {
       return -1
     } // 超出了最大极限值
-    var day = calendar.monthDays(y, m)
-    var _day = day
+    let day = calendar.monthDays(y, m)
+    let _day = day
     // bugFix 2016-9-25
     // if month is leap, _day use leapDays method
     if (isLeapMonth) {
@@ -978,13 +978,13 @@ var calendar = {
     } // 参数合法性效验
 
     // 计算农历的时间差
-    var offset = 0
-    for (var j = 1900; j < y; j++) {
+    let offset = 0
+    for (let j = 1900; j < y; j++) {
       offset += calendar.lYearDays(j)
     }
-    var leap = 0
-    var isAdd = false
-    for (var i = 1; i < m; i++) {
+    let leap = 0
+    let isAdd = false
+    for (let i = 1; i < m; i++) {
       leap = calendar.leapMonth(y)
       if (!isAdd) {
         // 处理闰月
@@ -1000,11 +1000,11 @@ var calendar = {
       offset += day
     }
     // 1900年农历正月一日的公历时间为1900年1月30日0时0分0秒(该时间也是本农历的最开始起始点)
-    var stmap = Date.UTC(1900, 1, 30, 0, 0, 0)
-    var calObj = new Date((offset + d - 31) * 86400000 + stmap)
-    var cY = calObj.getUTCFullYear()
-    var cM = calObj.getUTCMonth() + 1
-    var cD = calObj.getUTCDate()
+    let stmap = Date.UTC(1900, 1, 30, 0, 0, 0)
+    let calObj = new Date((offset + d - 31) * 86400000 + stmap)
+    let cY = calObj.getUTCFullYear()
+    let cM = calObj.getUTCMonth() + 1
+    let cD = calObj.getUTCDate()
 
     return calendar.solar2lunar(cY, cM, cD)
   }

@@ -84,9 +84,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
           width="20"
           height="20"
           viewBox="0 0 16 16"
-          version="1.1"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <g class="transform-group">
             <g transform="scale(0.015625, 0.015625)">
@@ -103,9 +101,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
           width="20"
           height="20"
           viewBox="0 0 16 16"
-          version="1.1"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <g class="transform-group">
             <g transform="scale(0.015625, 0.015625)">
@@ -127,7 +123,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
         <div class="year">{{ year }}</div>
       </div>
     </div>
-    <table cellpadding="5" @touchstart="starttouch($event)" @touchend="endtouch($event)">
+    <table cellpadding="5" @touchstart="startTouch($event)" @touchend="endTouch($event)">
       <thead>
         <tr>
           <td v-for="week in weeks" :key="week" class="week">{{ week }}</td>
@@ -149,14 +145,14 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
             <span
               :class="{
                 red:
-                  k2 == 0 ||
-                  k2 == 6 ||
+                  k2 === 0 ||
+                  k2 === 6 ||
                   ((child.isLunarFestival || child.isGregorianFestival) &&
                     lunar)
               }"
               :style="(isshowtoday&&child.isToday&&!child.selected)?'color:#126DFF;background:#E9F3FE':''"
             >{{ child.day }}</span>
-            <div v-if="child.eventName != undefined" class="text">
+            <div v-if="child.eventName !== undefined" class="text">
               {{ child.eventName }}
             </div>
             <div
@@ -178,7 +174,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
       <span
         v-for="y in years"
         :key="y"
-        :class="{ active: y == year }"
+        :class="{ active: y === year }"
         @click.stop="selectYear(y)"
       >{{ y }}</span>
     </div>
@@ -187,6 +183,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
 
 <script>
 import calendar from './calendar.js'
+
 export default {
   props: {
     // 多选模式
@@ -366,20 +363,19 @@ export default {
   },
   computed: {
     nowDate: function() {
-      var DayList = ['日', '一', '二', '三', '四', '五', '六']
-      var date = new Date()
-      var Y = date.getFullYear()
-      var m = date.getMonth() + 1
-      var d = date.getDate()
-      var day = date.getDay()
+      const DayList = ['日', '一', '二', '三', '四', '五', '六']
+      const date = new Date()
+      const Y = date.getFullYear()
+      let m = date.getMonth() + 1
+      let d = date.getDate()
+      let day = date.getDay()
       if (m < 10) {
         m = '0' + m
       }
       if (d < 10) {
         d = '0' + d
       }
-      var t = Y + '年' + m + '月' + d + '日 星期' + DayList[day]
-      return t
+      return Y + '年' + m + '月' + d + '日 星期' + DayList[day]
     },
     nowYearMonth: function() {
       return this.year + '.' + ((this.month + 1) < 10 ? '0' + (this.month + 1) : (this.month + 1))
@@ -398,18 +394,18 @@ export default {
   },
   methods: {
     // 监听滑动
-    starttouch(e) {
+    startTouch(e) {
       if (!this.touchthreshold) {
         return
       }
       this.MoveX = e.changedTouches[0].clientX// x
     },
     // 滑动结束
-    endtouch(e) {
+    endTouch(e) {
       if (!this.touchthreshold || !this.MoveX) {
         return
       }
-      var CHA = this.MoveX - e.changedTouches[0].clientX
+      const CHA = this.MoveX - e.changedTouches[0].clientX
       console.log('滑动的阈值', CHA)
       if (Math.abs(CHA) >= this.touchthreshold) {
         if (CHA > 0) {
@@ -461,7 +457,7 @@ export default {
       const lastDateOfMonth = new Date(y, m + 1, 0).getDate() // 当月最后一天
       const lastDayOfLastMonth = new Date(y, m, 0).getDate() // 最后一月的最后一天
       this.year = y
-      const seletSplit = this.value
+      const selectSplit = this.value
       let i
       let line = 0
       const temp = []
@@ -617,9 +613,9 @@ export default {
           const chkM = chk.getMonth()
           // 匹配上次选中的日期
           if (
-            parseInt(seletSplit[0]) === this.year &&
-            parseInt(seletSplit[1]) - 1 === this.month &&
-            parseInt(seletSplit[2]) === i
+            parseInt(selectSplit[0]) === this.year &&
+            parseInt(selectSplit[1]) - 1 === this.month &&
+            parseInt(selectSplit[2]) === i
           ) {
             // console.log("匹配上次选中的日期",lunarYear,lunarMonth,lunarValue,lunarInfo)
             temp[line].push(
@@ -795,8 +791,8 @@ export default {
       let isGregorianFestival = false
       if (this.isshowtoday) {
         // 是否要在日期上标注上今天
-        var nowDate = new Date()
-        var nowDay = (nowDate.getMonth() + 1) + '-' + nowDate.getDate()
+        const nowDate = new Date()
+        let nowDay = (nowDate.getMonth() + 1) + '-' + nowDate.getDate()
         if (nowDay === (m + '-' + d)) {
           isToday = true
         }
