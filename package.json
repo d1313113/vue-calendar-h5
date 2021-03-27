@@ -1,42 +1,41 @@
 {
-    "name": "vue-calendar-h5",
-    "description": "小巧的日历样式组件,不仅可以展示,还可以选择",
-    "version": "1.0.0",
-    "author": "Cumelmell <cumelmell@foxmail.com>",
-    "license": "MIT",
-    "private": false,
-    "main": "./dist/index.js",
-    "scripts": {
-        "build": "cross-env NODE_ENV=production webpack --hide-modules"
-    },
-    "dependencies": {
-        "vue": "^2.6.11"
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not ie <= 8"
-    ],
-    "devDependencies": {
-        "@babel/core": "^7.0.0",
-        "@babel/plugin-proposal-class-properties": "^7.0.0",
-        "@babel/plugin-proposal-json-strings": "^7.0.0",
-        "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-        "@babel/plugin-syntax-import-meta": "^7.0.0",
-        "@babel/plugin-transform-runtime": "^7.0.0",
-        "@babel/preset-env": "^7.0.0",
-        "@babel/runtime-corejs2": "^7.9.2",
-        "babel-loader": "^8.0.0",
-        "clean-webpack-plugin": "^3.0.0",
-        "cross-env": "^7.0.2",
-        "css-loader": "^3.5.3",
-        "file-loader": "^6.0.0",
-        "terser-webpack-plugin": "^2.3.5",
-        "vue-loader": "^15.9.1",
-        "vue-template-compiler": "^2.6.11",
-        "webpack": "^4.43.0",
-        "webpack-cli": "^3.3.11",
-        "webpack-dev-server": "^3.10.3",
-        "webpackbar": "^4.0.0"
-    }
+  "name": "vue-calendar-h5",
+  "description": "小巧的日历样式组件,不仅可以展示,还可以选择",
+  "version": "1.0.0",
+  "author": "Cumelmell <cumelmell@foxmail.com>",
+  "license": "MIT",
+  "private": false,
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "webpack-cli serve --progress --config=config/webpack.dev.js",
+    "build": "webpack-cli build --config=config/webpack.pro.js"
+  },
+  "dependencies": {
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.13",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-json-strings": "^7.13.8",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/runtime-corejs2": "^7.13.10",
+    "@webpack-cli/serve": "^1.3.0",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.2.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "terser-webpack-plugin": "^5.1.1",
+    "vue-loader": "15.9.6",
+    "vue-style-loader": "^4.1.3",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "5.28.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3",
+    "webpackbar": "^5.0.0-3"
+  }
 }
