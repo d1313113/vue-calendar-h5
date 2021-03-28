@@ -140,8 +140,9 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
             :key="child + k2"
             :class="{ selected: child.selected, disabled: child.disabled }"
             :style="controllable?'':'pointer-events: none;'"
-            @click="select(k1, k2, $event,child)"
+            @click="select(k1, k2, $event, child)"
           >
+            <slot name="header" :data="child" :date="child.date"/>
             <span
               :class="{
                 red:
@@ -165,6 +166,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
             >
               {{ child.lunar }}
             </div>
+            <slot name="footer" :data="child" :date="child.date"/>
           </td>
         </tr>
       </tbody>
@@ -471,11 +473,16 @@ export default {
         } else if (i === 1) {
           temp[line] = []
           k = lastDayOfLastMonth - firstDayOfMonth + 1
+          // 先填充上个月数据
           for (let j = 0; j < firstDayOfMonth; j++) {
             // console.log("第一行",lunarYear,lunarMonth,lunarValue,lunarInfo)
             temp[line].push(
               Object.assign(
-                { day: k, disabled: true },
+                {
+                  day: k,
+                  disabled: true,
+                  date: new Date(this.computedPrevYear(), this.computedPrevMonth(true), k)
+                },
                 this.getLunarInfo(
                   this.computedPrevYear(),
                   this.computedPrevMonth(true),
@@ -496,7 +503,10 @@ export default {
           // 范围
           // console.log("日期范围",this.getLunarInfo(this.year,this.month+1,i))
           const options = Object.assign(
-            { day: i },
+            {
+              day: i,
+              date: new Date(this.year, this.month + 1, i)
+            },
             this.getLunarInfo(this.year, this.month + 1, i),
             this.getEvents(this.year, this.month + 1, i)
           )
@@ -560,13 +570,21 @@ export default {
             }).length > 0
           ) {
             options = Object.assign(
-              { day: i, selected: true },
+              {
+                day: i,
+                selected: true,
+                date: new Date(this.year, this.month + 1, i)
+              },
               this.getLunarInfo(this.year, this.month + 1, i),
               this.getEvents(this.year, this.month + 1, i)
             )
           } else {
             options = Object.assign(
-              { day: i, selected: false },
+              {
+                day: i,
+                selected: false,
+                date: new Date(this.year, this.month + 1, i)
+              },
               this.getLunarInfo(this.year, this.month + 1, i),
               this.getEvents(this.year, this.month + 1, i)
             )
@@ -620,7 +638,11 @@ export default {
             // console.log("匹配上次选中的日期",lunarYear,lunarMonth,lunarValue,lunarInfo)
             temp[line].push(
               Object.assign(
-                { day: i, selected: true },
+                {
+                  day: i,
+                  selected: true,
+                  date: new Date(this.year, this.month + 1, i)
+                },
                 this.getLunarInfo(this.year, this.month + 1, i),
                 this.getEvents(this.year, this.month + 1, i)
               )
@@ -636,7 +658,11 @@ export default {
             // console.log("今天",lunarYear,lunarMonth,lunarValue,lunarInfo)
             temp[line].push(
               Object.assign(
-                { day: i, selected: true },
+                {
+                  day: i,
+                  selected: true,
+                  date: new Date(this.year, this.month + 1, i)
+                },
                 this.getLunarInfo(this.year, this.month + 1, i),
                 this.getEvents(this.year, this.month + 1, i)
               )
@@ -646,7 +672,11 @@ export default {
             // 普通日期
             // console.log("设置可选范围",i,lunarYear,lunarMonth,lunarValue,lunarInfo)
             const options = Object.assign(
-              { day: i, selected: false },
+              {
+                day: i,
+                selected: false,
+                date: new Date(this.year, this.month + 1, i)
+              },
               this.getLunarInfo(this.year, this.month + 1, i),
               this.getEvents(this.year, this.month + 1, i)
             )
@@ -694,7 +724,11 @@ export default {
             // console.log(this.computedNextYear()+"-"+this.computedNextMonth(true)+"-"+k)
             temp[line].push(
               Object.assign(
-                { day: k, disabled: true },
+                {
+                  day: k,
+                  disabled: true,
+                  date: new Date(this.computedNextYear(), this.computedNextMonth(true), k)
+                },
                 this.getLunarInfo(
                   this.computedNextYear(),
                   this.computedNextMonth(true),
@@ -723,7 +757,11 @@ export default {
           for (let d = start; d <= start + 6; d++) {
             temp[i].push(
               Object.assign(
-                { day: d, disabled: true },
+                {
+                  day: d,
+                  disabled: true,
+                  date: new Date(this.computedNextYear(), this.computedNextMonth(true), d)
+                },
                 this.getLunarInfo(
                   this.computedNextYear(),
                   this.computedNextMonth(true),

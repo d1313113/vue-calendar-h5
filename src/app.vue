@@ -1,11 +1,26 @@
 <template>
   <div id="app">
-    <div v-for="n in 12" :key="n">{{ n }}</div>
+    <calendar
+      @choseDay="clickDay"
+      @changeMonth="changeDate"
+      @select="handleSelect"
+      :markDateMore="calendarList"
+      :futureDayHide="now"
+      ref="calendar">
+      <template #header="{ date }">
+        header
+        {{ date }}
+      </template>
+      <template #footer="{ date }">
+        footer
+        {{ date }}
+      </template>
+    </calendar>
   </div>
 </template>
 
 <script>
-import calendar from './calendar.vue'
+import calendar from './calendar'
 
 export default {
   name: 'app',
@@ -14,11 +29,20 @@ export default {
   },
   data () {
     return {
-      n1: 123
+      calendarList: [],
+      now: new Date()
     };
   },
-  created() {
-    console.log(12345555599);
+  methods: {
+    clickDay (date) {
+      console.log(date);
+    },
+    changeDate (date) {
+      console.log(date)
+    },
+    handleSelect (date) {
+      console.log(date);
+    }
   }
 }
 </script>
