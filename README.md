@@ -1,29 +1,17 @@
 # 前言
 
-> 额...因为最近公司的项目需要用到日历展示,于是乎找了市面上所有日历组件,包括 element 在内的日历均不符合要求,最后找到了来着 github 点赞数最高的日历组件[jinzhe 大佬的 vue-calendar](https://github.com/jinzhe/vue-calendar),于是我就拿过来进行小修改,顺便看了原项目的 Issues 问题,对部分进行了优化处理,因为项目需求不需要设计 Issues 的功能,所以部分修复未测试,如有问题欢迎提 Issues 告诉我,我会尝试着进行修复,如有志同道合者,欢迎你 fork 项目修改并 pr 给我,最后留下你们小星星,谢谢!
-
-## 地址
-
-###### npm：[https://www.npmjs.com/package/vue-calendar-h5](https://www.npmjs.com/package/vue-calendar-h5)
-
-###### yarn：[https://classic.yarnpkg.com/en/package/vue-calendar-h5](https://classic.yarnpkg.com/en/package/vue-calendar-h5)
-
-###### cnpm：[https://developer.aliyun.com/mirror/npm/package/vue-calendar-h5](https://developer.aliyun.com/mirror/npm/package/vue-calendar-h5)
-
-###### github：[https://github.com/2277419213/vue-calendar-h5](https://github.com/2277419213/vue-calendar-h5)
-
-###### gitee：[https://gitee.com/JuLizhanzhan/vue-calendar-h5](https://gitee.com/JuLizhanzhan/vue-calendar-h5)
+> [jinzhe 大佬的 vue-calendar](https://github.com/jinzhe/vue-calendar)
 
 ## 食用方式
 
 ### 安装
 
 ```shell
-npm install vue-calendar-h5
+npm install vue-calendar-h5-tf
 
 or
 
-cnpm install vue-calendar-h5
+cnpm install vue-calendar-h5-tf
 ```
 
 ### 普通使用
@@ -107,11 +95,15 @@ export default {
 | multi | 多选模式 | false |
 | zero | 是否小于 10 补零 | false |
 | disabled | 需要屏蔽的日期 | [] |
-| 以上原作者配置,以下新增配置
+| **以上原作者配置,以下新增配置** |
 | controllable | 是否可以点击(纯展示建议为 false) | true |
 | versions | 显示版本(为空则原作者版本,'juli'则纯展示版本) | '' |
 | isshowtoday | 是否在日期上标注今天 | false |
 | touchthreshold | 滑动切换的阈值(number 类型 0 为不开启) | 0 |
+| **增加支持slot功能** |
+| slot 名称 | 位置 | v-slot 携带数据 |
+| header | 头部 | { date, data } |
+| footer | 尾部 | { date, data } |
 
 ## 版本
 
@@ -138,7 +130,3 @@ export default {
 ##### 日历组件的原作者 jinzhe
 
 大佬的签名果然比较新颖[一位合格的前端开发者，应对视觉设计感兴趣。](https://github.com/jinzhe),感谢大佬开源了一个这么好的组件,提供了这么好看的样式,大大的节省了开发的时间!比心❤
-
-##### 说一下我自己 JuLizhanzhan
-
-更多常见我的 nickname 是居里栈栈,微信 QQ 同名，哈哈哈，其实我也就是一个在不断学习的学者，不断的试错也是成长的一部分，希望大家共同进步，学有所成，最后祝大家新年快乐啦，外带提一句寻找高薪工作（h5,web,小程序）和诚接外包项目，有兴趣的朋友们记得找我聊聊，WeChat:812936565(备注 GitHub)
