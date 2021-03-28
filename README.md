@@ -6,17 +6,17 @@
 
 ### 安装
 
-```shell
+```bash
 npm install vue-calendar-h5-tf
 
-or
+# or
 
 cnpm install vue-calendar-h5-tf
 ```
 
 ### 普通使用
 
-```
+```vue
 <template>
   <div id="app">
     <h5-calendar></h5-calendar>
@@ -25,21 +25,21 @@ cnpm install vue-calendar-h5-tf
 
 <script>
 // 局部引入
-import H5Calendar  from 'vue-calendar-h5'
+import H5Calendar  from 'vue-calendar-h5-tf'
 export default {
   name: 'App',
   components: { H5Calendar }
 };
 
 // 全局引入
-import H5Calendar from 'vue-calendar-h5'
+import H5Calendar from 'vue-calendar-h5-tf'
 Vue.use(H5Calendar)
 </script>
 ```
 
 ## Dome
 
-```
+```vue
 <template>
   <div>
     <div class="calendardome">
@@ -60,7 +60,7 @@ Vue.use(H5Calendar)
 </template>
 
 <script>
-import H5Calendar from "vue-calendar-h5";
+import H5Calendar from "vue-calendar-h5-tf";
 export default {
   components: { H5Calendar }
 };
@@ -72,6 +72,40 @@ export default {
 }
 </style>
 ```
+
+
+
+```vue
+<template>
+  <div class="calendardome">
+    <H5Calendar>
+      <template #header="{ date, data }">
+        {{ date }}
+        {{ data }}
+			</template>
+			<template #footer="{ date, data }">
+        {{ date }}
+        {{ data }}
+			</template>
+  	</H5Calendar>
+    </div>
+</template>
+
+<script>
+import H5Calendar from "vue-calendar-h5-tf";
+export default {
+  components: { H5Calendar }
+};
+</script>
+
+<style scoped>
+.calendardome {
+  padding: 0 22px;
+}
+</style>
+```
+
+
 
 ## 演示网站
 
