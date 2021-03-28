@@ -481,7 +481,7 @@ export default {
                 {
                   day: k,
                   disabled: true,
-                  date: new Date(this.computedPrevYear(), this.computedPrevMonth(true), k)
+                  date: new Date(this.computedPrevYear(), this.computedPrevMonth(false), k)
                 },
                 this.getLunarInfo(
                   this.computedPrevYear(),
@@ -505,7 +505,7 @@ export default {
           const options = Object.assign(
             {
               day: i,
-              date: new Date(this.year, this.month + 1, i)
+              date: new Date(this.year, this.month, i)
             },
             this.getLunarInfo(this.year, this.month + 1, i),
             this.getEvents(this.year, this.month + 1, i)
@@ -573,7 +573,7 @@ export default {
               {
                 day: i,
                 selected: true,
-                date: new Date(this.year, this.month + 1, i)
+                date: new Date(this.year, this.month, i)
               },
               this.getLunarInfo(this.year, this.month + 1, i),
               this.getEvents(this.year, this.month + 1, i)
@@ -583,7 +583,7 @@ export default {
               {
                 day: i,
                 selected: false,
-                date: new Date(this.year, this.month + 1, i)
+                date: new Date(this.year, this.month, i)
               },
               this.getLunarInfo(this.year, this.month + 1, i),
               this.getEvents(this.year, this.month + 1, i)
@@ -641,7 +641,7 @@ export default {
                 {
                   day: i,
                   selected: true,
-                  date: new Date(this.year, this.month + 1, i)
+                  date: new Date(this.year, this.month, i)
                 },
                 this.getLunarInfo(this.year, this.month + 1, i),
                 this.getEvents(this.year, this.month + 1, i)
@@ -661,7 +661,7 @@ export default {
                 {
                   day: i,
                   selected: true,
-                  date: new Date(this.year, this.month + 1, i)
+                  date: new Date(this.year, this.month, i)
                 },
                 this.getLunarInfo(this.year, this.month + 1, i),
                 this.getEvents(this.year, this.month + 1, i)
@@ -675,7 +675,7 @@ export default {
               {
                 day: i,
                 selected: false,
-                date: new Date(this.year, this.month + 1, i)
+                date: new Date(this.year, this.month, i)
               },
               this.getLunarInfo(this.year, this.month + 1, i),
               this.getEvents(this.year, this.month + 1, i)
@@ -727,7 +727,7 @@ export default {
                 {
                   day: k,
                   disabled: true,
-                  date: new Date(this.computedNextYear(), this.computedNextMonth(true), k)
+                  date: new Date(this.computedNextYear(), this.computedNextMonth(false), k)
                 },
                 this.getLunarInfo(
                   this.computedNextYear(),
@@ -760,7 +760,7 @@ export default {
                 {
                   day: d,
                   disabled: true,
-                  date: new Date(this.computedNextYear(), this.computedNextMonth(true), d)
+                  date: new Date(this.computedNextYear(), this.computedNextMonth(false), d)
                 },
                 this.getLunarInfo(
                   this.computedNextYear(),
