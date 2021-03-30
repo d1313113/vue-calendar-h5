@@ -201,23 +201,17 @@ export default {
     // 默认日期
     value: {
       type: Array,
-      default: function() {
-        return []
-      }
+      default: () => ([])
     },
     // 开始选择日期
     begin: {
       type: Array,
-      default: function() {
-        return []
-      }
+      default: () => ([])
     },
     // 结束选择日期
     end: {
       type: Array,
-      default: function() {
-        return []
-      }
+      default: () => ([])
     },
     // 是否小于10补零
     zero: {
@@ -227,9 +221,7 @@ export default {
     // 屏蔽的日期
     disabled: {
       type: Array,
-      default: function() {
-        return []
-      }
+      default: () => ([])
     },
     // 是否显示农历
     lunar: {
@@ -239,7 +231,7 @@ export default {
     // 自定义星期名称
     weeks: {
       type: Array,
-      default: function() {
+      default: () => {
         return window.navigator.language.toLowerCase().indexOf('zh') !== -1
           ? ['日', '一', '二', '三', '四', '五', '六']
           : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -248,7 +240,7 @@ export default {
     // 自定义月份
     months: {
       type: Array,
-      default: function() {
+      default: () => {
         return window.navigator.language.toLowerCase().indexOf('zh') !== -1
           ? [
             '一月',
@@ -283,37 +275,27 @@ export default {
     // 自定义事件
     events: {
       type: Object,
-      default: function() {
-        return {}
-      }
+      default: () => ({})
     },
     // 是否可以点击
     controllable: {
       type: Boolean,
-      default: () => {
-        return true
-      }
+      default: true
     },
     // 版本,juli为我公司的版本样式,空则原作者样式
     versions: {
       type: String,
-      default: () => {
-        return ''
-      }
+      default: ''
     },
     // 是否在日期上标注今天
     isshowtoday: {
       type: Boolean,
-      default: () => {
-        return false
-      }
+      default: false
     },
     // 能否滑动切换
     touchthreshold: {
       type: Number,
-      default: () => {
-        return 0
-      }
+      default: 0
     }
   },
   data() {
@@ -364,7 +346,7 @@ export default {
     }
   },
   computed: {
-    nowDate: function() {
+    nowDate() {
       const DayList = ['日', '一', '二', '三', '四', '五', '六']
       const date = new Date()
       const Y = date.getFullYear()
@@ -379,7 +361,7 @@ export default {
       }
       return Y + '年' + m + '月' + d + '日 星期' + DayList[day]
     },
-    nowYearMonth: function() {
+    nowYearMonth() {
       return this.year + '.' + ((this.month + 1) < 10 ? '0' + (this.month + 1) : (this.month + 1))
     }
   },
