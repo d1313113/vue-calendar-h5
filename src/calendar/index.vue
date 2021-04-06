@@ -857,8 +857,8 @@ export default {
         this.month = parseInt(this.month) - 1
       }
       this.render(this.year, this.month)
-      this.$emit('selectMonth', this.month + 1, this.year)
-      this.$emit('prev', this.month + 1, this.year)
+      this.$emit('selectMonth', this.zero ? this.zeroPad(this.month + 1) : this.month + 1, this.year)
+      this.$emit('prev', this.zero ? this.zeroPad(this.month + 1) : this.month + 1, this.year)
     },
     //  下月
     next(e) {
@@ -872,8 +872,8 @@ export default {
         this.month = parseInt(this.month) + 1
       }
       this.render(this.year, this.month)
-      this.$emit('selectMonth', this.month + 1, this.year)
-      this.$emit('next', this.month + 1, this.year)
+      this.$emit('selectMonth', this.zero ? this.zeroPad(this.month + 1) : this.month + 1, this.year)
+      this.$emit('next', this.zero ? this.zeroPad(this.month + 1) : this.month + 1, this.year)
     },
     // 选中日期
     select(k1, k2, e, child) {
