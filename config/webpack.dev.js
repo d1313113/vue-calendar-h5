@@ -24,7 +24,7 @@ const devConfig = merge(config, {
   devServer: {
     contentBase: path.join(__dirname, '../dist'),
     port: 8080,
-    open: false,
+    open: true,
     hot: true,
     hotOnly: true,
     clientLogLevel: 'silent',

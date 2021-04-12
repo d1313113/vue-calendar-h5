@@ -114,7 +114,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
         </svg>
       </span>
       <div class="calendar-info" @click.stop="changeYear">
-        <!-- {{monthString}} -->
+        <span v-if="showNowDate">{{ nowDate }}</span>
         <div class="month">
           <div class="month-inner" :style="{ top: -(month * 20) + 'px' }">
             <span v-for="m in months" :key="m">{{ m }}</span>
@@ -296,6 +296,11 @@ export default {
     touchthreshold: {
       type: Number,
       default: 0
+    },
+    // 是否显示日期
+    showNowDate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
