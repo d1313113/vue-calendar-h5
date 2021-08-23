@@ -6,6 +6,7 @@
       @select="handleSelect"
       :markDateMore="calendarList"
       :futureDayHide="now"
+      collapse
       ref="calendar">
       <template #header="{ date }">
         header

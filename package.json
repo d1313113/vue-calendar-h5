@@ -1,7 +1,7 @@
 {
   "name": "vue-calendar-h5-tf",
   "description": "小巧的日历样式组件,不仅可以展示,还可以选择",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Cumelmell <cumelmell@foxmail.com>",
   "license": "MIT",
   "private": false,

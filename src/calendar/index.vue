@@ -133,7 +133,9 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
         <tr
           v-for="(day, k1) in days"
           :key="day + k1"
+          class="calendar-week"
           style="{'animation-delay',(k1*30)+'ms'}"
+          ref="calendarBodyWeek"
         >
           <td
             v-for="(child, k2) in day"
@@ -171,6 +173,25 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
         </tr>
       </tbody>
     </table>
+
+    <div v-if="collapse" class="calendar-collapse" @click="toggleCollapse">
+      <slot v-if="$slots.collapse" name="collapse" />
+      <svg
+        v-else
+        class="icon-collapse"
+        :class="{
+          collapse: isCollapse
+        }"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg" p-id="2066" width="38" height="38"
+      >
+        <path
+          d="M369.5 624.5l146.24999999-146.25L662 624.5a36.263 36.263 0 0 0 52.5 0 36.263 36.263 0 0 0 0-52.5L542 399.5a36.263 36.263 0 0 0-52.5 0L317 572a37.125 37.125 0 1 0 52.5 52.5z"
+          fill="#5e7a88"
+        />
+      </svg>
+    </div>
 
     <div class="calendar-years" :class="{ show: yearsShow }">
       <span
@@ -301,6 +322,11 @@ export default {
     showNowDate: {
       type: Boolean,
       default: false
+    },
+    // 是否开启折叠
+    collapse: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -347,7 +373,8 @@ export default {
         }
       },
       rangeBegin: [],
-      rangeEnd: []
+      rangeEnd: [],
+      isCollapse: false // 是否折叠
     }
   },
   computed: {
@@ -1015,6 +1042,44 @@ export default {
     // 日期补零
     zeroPad(n) {
       return String(n < 10 ? '0' + n : n)
+    },
+    // 切换折叠
+    toggleCollapse(collapse) {
+      this.isCollapse = typeof collapse === 'boolean' ? collapse : !this.isCollapse;
+      this.toggleClass(this.isCollapse);
+    },
+    toggleClass(collapse) {
+      let i = -1;
+      this.$refs.calendarBodyWeek.forEach((tr, i1) => {
+        if (tr.hasChildNodes()) {
+          tr.childNodes.forEach(td => {
+            if (collapse) {
+              // 同一行选中的,跳过
+              if (i1 === i) return;
+              const selected = td.classList.contains('selected');
+              if (selected) {
+                i = i1;
+                tr.classList.remove('collapse');
+              } else {
+                tr.classList.add('collapse');
+              }
+            } else {
+              tr.classList.remove('collapse');
+            }
+          });
+        }
+      });
+      // 默认折叠第一行
+      if (i < 0) {
+        this.$refs.calendarBodyWeek.forEach((tr, i) => {
+          if (collapse) {
+            if (!i) tr.classList.remove('collapse');
+            else tr.classList.add('collapse');
+          } else {
+            tr.classList.remove('collapse');
+          }
+        });
+      }
     }
   }
 }
@@ -1122,6 +1187,16 @@ export default {
   cursor: pointer;
   position: relative;
   vertical-align: top;
+}
+.calendar-week td,
+.calendar td span {
+  transition: all .5s;
+}
+.calendar-week.collapse td,
+.calendar-week.collapse td span {
+  height: 0 !important;
+  opacity: 0;
+  overflow: hidden;
 }
 .calendar td.week {
   font-size: 10px;
@@ -1246,5 +1321,16 @@ export default {
   border: 1px solid #5e7a88;
   background-color: #5e7a88;
   color: #fff;
+}
+.calendar-collapse {
+  margin-top: 28px;
+}
+.calendar-collapse .icon-collapse {
+  display: block;
+  margin: 0 auto;
+  transition: transform .5s;
+}
+.icon-collapse.collapse {
+  transform: rotateZ(180deg);
 }
 </style>
