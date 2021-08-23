@@ -134,10 +134,12 @@ export default {
 | versions | 显示版本(为空则原作者版本,'juli'则纯展示版本) | '' |
 | isshowtoday | 是否在日期上标注今天 | false |
 | touchthreshold | 滑动切换的阈值(number 类型 0 为不开启) | 0 |
+| collapse | 开启折叠功能 | false |
 | **增加支持slot功能** |
 | slot 名称 | 位置 | v-slot 携带数据 |
 | header | 头部 | { date, data } |
 | footer | 尾部 | { date, data } |
+| collapse | 折叠 | - |
 
 ## 版本
 
