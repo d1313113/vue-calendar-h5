@@ -175,7 +175,7 @@ dmlldzJfMTBfMTU5Nzk5MjkwMDk3MDQ4OTZfNTJfWzBdtgPn1QAAAABJRU5ErkJggg=="
     </table>
 
     <div v-if="collapse" class="calendar-collapse" @click="toggleCollapse">
-      <slot v-if="$slots.collapse" name="collapse" />
+      <slot v-if="$scopedSlots.collapse" name="collapse" :collapse="isCollapse" />
       <svg
         v-else
         class="icon-collapse"
@@ -407,6 +407,7 @@ export default {
   },
   mounted() {
     this.init()
+    console.log(this.$slots.collapse);
   },
   methods: {
     // 监听滑动

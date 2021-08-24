@@ -139,7 +139,7 @@ export default {
 | slot 名称 | 位置 | v-slot 携带数据 |
 | header | 头部 | { date, data } |
 | footer | 尾部 | { date, data } |
-| collapse | 折叠 | - |
+| collapse | 折叠 | { collapse } |
 
 ## 版本
 

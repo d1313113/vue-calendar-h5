@@ -16,6 +16,9 @@
         footer
         {{ date }}
       </template>
+      <template #collapse="{ collapse }">
+        折叠状态{{ collapse }}
+      </template>
     </calendar>
   </div>
 </template>
